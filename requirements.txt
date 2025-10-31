@@ -1,6 +1,10 @@
-# Chatterbox TTS Core Package with multilingual support
-# chatterbox-tts==0.1.4
-chatterbox-tts @ git+https://github.com/travisvn/chatterbox-multilingual.git@exp
+# Chatterbox Streaming Package for TRUE model-level streaming
+# This package includes BOTH generate() and generate_stream() methods
+# NOTE: Multilingual support is not available - English only
+chatterbox-streaming @ git+https://github.com/davidbrowne17/chatterbox-streaming.git
+
+# OLD: Removed due to numpy version conflict with chatterbox-streaming
+# chatterbox-tts @ git+https://github.com/travisvn/chatterbox-multilingual.git@exp
 
 # Required for Chatterbox TTS watermarker functionality
 resemble-perth
@@ -13,6 +17,9 @@ torchaudio>=2.0.0,<2.7.0
 fastapi>=0.104.0
 uvicorn[standard]>=0.24.0
 pydantic>=2.0.0
+
+# WebSocket support for real-time streaming
+websockets>=12.0
 
 # Required for FastAPI file upload support
 python-multipart>=0.0.6

@@ -7,7 +7,7 @@ from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
-from app.core.tts_model import initialize_model
+from app.core.tts_model import initialize_model, is_streaming_available
 from app.core.voice_library import get_voice_library
 from app.core.background_tasks import start_background_processor, stop_background_processor
 from app.api.router import api_router
@@ -34,9 +34,18 @@ async def lifespan(app: FastAPI):
     # Start model initialization in the background
     # This allows the server to respond to health checks immediately
     # while the model loads asynchronously
+    # NOTE: Using ONE model that supports both generate() and generate_stream()
     import asyncio
     model_init_task = asyncio.create_task(initialize_model())
-    
+
+    if is_streaming_available():
+        print("✓ Chatterbox Streaming package detected")
+        print("  - Supports: generate() for standard TTS")
+        print("  - Supports: generate_stream() for TRUE streaming")
+    else:
+        print("✗ Chatterbox Streaming package not available - TTS will not work!")
+        print("  Install with: pip install git+https://github.com/davidbrowne17/chatterbox-streaming.git")
+
     # Initialize voice library to restore default voice settings
     print("Initializing voice library...")
     voice_lib = get_voice_library()

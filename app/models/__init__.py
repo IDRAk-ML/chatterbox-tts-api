@@ -2,7 +2,7 @@
 Pydantic models for request and response validation
 """
 
-from .requests import TTSRequest
+from .requests import TTSRequest, TrueStreamingRequest, WebSocketStreamingMessage
 from .responses import (
     HealthResponse,
     ModelInfo,
@@ -39,6 +39,8 @@ from .long_text import (
 
 __all__ = [
     "TTSRequest",
+    "TrueStreamingRequest",
+    "WebSocketStreamingMessage",
     "HealthResponse",
     "ModelInfo",
     "ModelsResponse",
